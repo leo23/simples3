@@ -1,3 +1,7 @@
+Changes in simpleoss 1.0
+-----------------------
+copy from simples3
+
 Changes in simples3 1.0
 -----------------------
 

@@ -1,7 +1,7 @@
-#simples3
+#simpleoss
 
 ##Overview
-A fairly simple, decently quick interface to Amazon's S3 storage service.
+A fairly simple, decently quick interface to Aliyun's OSS storage service.
 
 It grew out of frustration with other libraries that were either written too
 pragmatically (slow), too bloatedly, or just half-done.
@@ -23,22 +23,22 @@ standard libraries.
 ##Installation
 
 ```sh
-pip install simples3
+pip install simpleoss
 ```
 
 ##Usage
 
-Access to a bucket is done via the S3Bucket class. It has three required arguments:
+Access to a bucket is done via the OSSBucket class. It has three required arguments:
 
 ```python
-from simples3.bucket import S3Bucket
+from simpleoss.bucket import OSSBucket
 
-s = S3Bucket(bucket,
+s = OSSBucket(bucket,
              access_key=access_key,
              secret_key=secret_key)
  
 print s  
-#<S3Bucket ... at 'https://s3.amazonaws.com/...'>
+#<OSSBucket ... at 'http://oss.aliyun.com/...'>
 ```
 To add a file, simply do
 ```python
@@ -52,18 +52,16 @@ print f.read()
 ```
 To retrieve information about a file, do
 ```python
-print f.s3_info["mimetype"]
+print f.oss_info["mimetype"]
 #'application/octet-stream'
 
-print f.s3_info.keys()
+print f.oss_info.keys()
 #['mimetype', 'modify', 'headers', 'date', 'size', 'metadata']
 ```
 To delete a file, do
 ```python
 del s["my file!"]
 ```
-
-For more detailed documentation, refer [here](http://sendapatch.se/projects/simples3)
 
 ##Contributing
 

@@ -6,9 +6,9 @@ import unittest
 import datetime
 from nose.tools import eq_
 
-import simples3
-from simples3.utils import aws_md5, aws_urlquote
-from simples3.utils import rfc822_fmtdate, rfc822_parsedate
+import simpleoss
+from simpleoss.utils import aws_md5, aws_urlquote
+from simpleoss.utils import rfc822_fmtdate, rfc822_parsedate
 from tests import MockHTTPResponse, BytesIO, g
 
 from tests import setup_package, teardown_package
@@ -57,7 +57,7 @@ class MiscTests(S3BucketTestCase):
         g.bucket.add_resp_obj(resp, status="401 Something something")
         try:
             g.bucket.get("foo.txt")
-        except simples3.S3Error, e:
+        except simpleoss.OSSError, e:
             assert "read_error" in e.extra
 
     def test_aws_md5_lit(self):
@@ -87,9 +87,9 @@ class GetTests(S3BucketTestCase):
             ("x-amz-meta-foo", "bar"))
         g.bucket.add_resp("/foo.txt", headers, "ohi")
         fp = g.bucket["foo.txt"]
-        eq_(fp.s3_info["mimetype"], "text/plain")
-        eq_(fp.s3_info["metadata"], {"foo": "bar"})
-        eq_(fp.s3_info["date"], dt)
+        eq_(fp.oss_info["mimetype"], "text/plain")
+        eq_(fp.oss_info["metadata"], {"foo": "bar"})
+        eq_(fp.oss_info["date"], dt)
         eq_(fp.read().decode("ascii"), "ohi")
 
     def test_get_not_found(self):
@@ -104,7 +104,7 @@ class GetTests(S3BucketTestCase):
                           status="404 Not Found")
         try:
             g.bucket.get("foo.txt")
-        except simples3.KeyNotFound, e:
+        except simpleoss.KeyNotFound, e:
             eq_(e.key, "foo.txt")
             eq_(str(e), "The specified key does not exist. (code=404, "
                         "key='foo.txt', filename='http://johnsmith.s3."
@@ -154,7 +154,7 @@ class PutTests(S3BucketTestCase):
 
     def test_put_s3file(self):
         g.bucket.add_resp("/foo.txt", g.H("application/xml"), "OK!")
-        g.bucket["foo.txt"] = simples3.S3File("hello")
+        g.bucket["foo.txt"] = simpleoss.OSSFile("hello")
         data = g.bucket.mock_requests[-1].get_data()
         eq_(data.decode("ascii"), "hello")
 
@@ -195,7 +195,7 @@ class DeleteTests(S3BucketTestCase):
                           "<wat />", status="403 What's Up?")
         try:
             g.bucket.delete("foo.txt")
-        except simples3.S3Error, e:
+        except simpleoss.OSSError, e:
             eq_(e.extra.get("key"), "foo.txt")
             eq_(e.code, 403)
         else:

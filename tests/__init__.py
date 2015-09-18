@@ -10,8 +10,8 @@ except ImportError:
     # 2to3 translates cStringIO to io, so this looks silly on Python 3.x
     from cStringIO import StringIO as BytesIO
 
-import simples3
-from simples3.utils import rfc822_fmtdate
+import simpleoss
+from simpleoss.utils import rfc822_fmtdate
 
 # httplib.HTTPMessage is useless for mocking contexts, use own
 class MockHTTPMessage(object):
@@ -94,7 +94,7 @@ class MockBucketMixin(object):
         self.mock_responses[:] = []
         self.mock_requests[:] = []
 
-class MockBucket(MockBucketMixin, simples3.S3Bucket):
+class MockBucket(MockBucketMixin, simpleoss.OSSBucket):
     pass
 
 g = type("Globals", (object,), {})()

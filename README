@@ -1,5 +1,8 @@
 `simples3` is a fairly simple, decently quick interface to Amazon's S3 storage
 service.
+`simpleoss` is a fairly simple, decently quick interface to Aliyun's OSS storage
+service.
+
 
 It grew out of frustration with other libraries that were either written too
 pragmatically (slow), too bloatedly, or just half-done.
@@ -17,6 +20,7 @@ Out of simplicity comes no dependencies - the code relies solely on Python
 standard libraries.
 
 `simples3` requires Python 2.5+ and nose for running tests. Python 3 support is not yet available.
+`simpleoss` requires Python 2.5+ and nose for running tests. Python 3 support is not yet available.
 
 IRC
 ---

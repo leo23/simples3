@@ -4,8 +4,8 @@ import StringIO
 
 from nose.tools import eq_
 
-from simples3 import streaming
-from simples3.utils import aws_md5
+from simpleoss import streaming
+from simpleoss.utils import aws_md5
 from tests import MockBucketMixin, H
 
 class StreamingMockBucket(MockBucketMixin, streaming.StreamingS3Bucket):
